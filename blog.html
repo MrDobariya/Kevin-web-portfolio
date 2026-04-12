@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Blog</title>
+</head>
+<body>
+
+<h1>My Blog</h1>
+<div id="posts"></div>
+
+<script>
+const repo = "MrDobariya/Kevin-web-portfolio";
+const folder = "blog";
+
+fetch(`https://api.github.com/repos/${repo}/contents/${folder}`)
+  .then(res => res.json())
+  .then(files => {
+    const container = document.getElementById("posts");
+
+    files.forEach(file => {
+      const post = document.createElement("div");
+
+      post.innerHTML = `
+        <h3>${file.name.replace(".md", "")}</h3>
+        <a href="${file.download_url}" target="_blank">Read Post</a>
+        <hr/>
+      `;
+
+      container.appendChild(post);
+    });
+  });
+</script>
+
+</body>
+</html>
